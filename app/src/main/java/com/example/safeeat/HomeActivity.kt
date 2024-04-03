@@ -31,8 +31,8 @@ class HomeActivity : Activity() {
         var homeMypage = findViewById<ImageButton>(R.id.homeMypage)
 
         homeMypage.setOnClickListener {
-            var homeIntent = Intent(applicationContext, HomeActivity::class.java)
-            startActivity(homeIntent)
+            var mypageIntent = Intent(applicationContext, MypageActivity::class.java)
+            startActivity(mypageIntent)
         }
         homeCamera.setOnClickListener {
             val cameraPermissionCheck = ContextCompat.checkSelfPermission(
