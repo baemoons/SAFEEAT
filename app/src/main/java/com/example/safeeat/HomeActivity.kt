@@ -3,6 +3,8 @@ package com.example.safeeat
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.widget.Button
@@ -30,16 +32,12 @@ class HomeActivity : Activity() {
         var homeCamera = findViewById<ImageButton>(R.id.homeCamera)
         var homeMypage = findViewById<ImageButton>(R.id.homeMypage)
 
-        homeMypage.setOnClickListener {
-            var mypageIntent = Intent(applicationContext, MypageActivity::class.java)
-            startActivity(mypageIntent)
-        }
         homeCamera.setOnClickListener {
             val cameraPermissionCheck = ContextCompat.checkSelfPermission(
                 this@HomeActivity,
                 android.Manifest.permission.CAMERA
             )
-            if(cameraPermissionCheck != PackageManager.PERMISSION_GRANTED) {
+            if (cameraPermissionCheck != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(
                     this,
                     arrayOf(android.Manifest.permission.CAMERA),
@@ -47,12 +45,16 @@ class HomeActivity : Activity() {
                 )
             } else {
                 val REQUEST_IMAGE_CAPTURE = 1
-                Intent(MediaStore.ACTION_IMAGE_CAPTURE).also {
-                    takePictureIntent -> takePictureIntent.resolveActivity(packageManager)?.also {
+                Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
+                    takePictureIntent.resolveActivity(packageManager)?.also {
                         startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
                     }
                 }
             }
+        }
+        homeMypage.setOnClickListener {
+            var mypageIntent = Intent(applicationContext, MypageActivity::class.java)
+            startActivity(mypageIntent)
         }
     }
 

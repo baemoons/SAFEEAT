@@ -13,8 +13,8 @@ class MainActivity : ComponentActivity() {
 
         Handler(Looper.getMainLooper()).postDelayed({
 //            val loginIntent = Intent(this,LoginActivity::class.java)
-            val homeIntent = Intent(this,HomeActivity::class.java)
-            startActivity(homeIntent)
+            val loginIntent = Intent(this,LoginActivity::class.java)
+            startActivity(loginIntent)
             finish()
         }, 2000)
 

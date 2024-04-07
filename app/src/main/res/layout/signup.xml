@@ -91,12 +91,13 @@
         android:layout_marginTop="12dp"
         >
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="315dp"
             android:layout_height="wrap_content"
             android:text="다른 계정으로 시작하기"
+            android:background="@drawable/btn_round"
             android:layout_marginBottom="12dp"
             android:id="@+id/otherAccount"
-            android:background="#ffffff"
+            android:backgroundTint="#ACD38D"
             />
         <Button
             android:layout_width="315dp"

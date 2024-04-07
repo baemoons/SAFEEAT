@@ -1,16 +1,23 @@
 package com.example.safeeat
 
 import android.app.Activity
+import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.ImageDecoder
+import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.provider.MediaStore.Audio.Media
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 
@@ -18,8 +25,6 @@ class ResultActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.result)
-
-        var resultFoodphoto = findViewById<ImageView>(R.id.resultFoodphoto)
 //        var resultresultFoodname = findViewById<TextView>(R.id.resultresultFoodname)
 //        var resultMaterialchart = findViewById<ImageView>(R.id.resultMaterialchart)
 //        var resultMaterialname = findViewById<TextView>(R.id.resultMaterialname)

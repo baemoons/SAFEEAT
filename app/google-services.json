@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "763461854332",
+    "project_id": "safeeat-be0a6",
+    "storage_bucket": "safeeat-be0a6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:763461854332:android:70f315e1341627e9cfd5f9",
+        "android_client_info": {
+          "package_name": "com.example.safeeat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAmYJAjqxOwVy64U38RzK1Tcfh52_oICCA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
