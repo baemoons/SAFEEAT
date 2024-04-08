@@ -1,12 +1,15 @@
 package com.example.safeeat
 
 import android.app.Activity
+import android.app.Dialog
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
@@ -48,8 +51,10 @@ class HomeActivity : Activity() {
                 Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
                     takePictureIntent.resolveActivity(packageManager)?.also {
                         startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
-                    }
+                    }                          
                 }
+                val dialog = CustomDialog(this)
+                dialog.myDig()
             }
         }
         homeMypage.setOnClickListener {
@@ -69,5 +74,19 @@ class HomeActivity : Activity() {
                 Toast.makeText(this@HomeActivity, "거부", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+}
+class CustomDialog(context: Context) {
+    private val dialog = Dialog(context)
+
+    fun myDig() {
+        dialog.show()
+    }
+
+    fun MyDig() {
+        dialog.setContentView(R.layout.resultpopup)
+        dialog.window!!.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
+        dialog.setCanceledOnTouchOutside(true)
+        dialog.setCancelable(true)
     }
 }
