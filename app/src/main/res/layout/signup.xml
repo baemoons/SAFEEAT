@@ -26,22 +26,15 @@
             <EditText
                 android:layout_width="240dp"
                 android:layout_height="43dp"
-                android:hint="아이디"
+                android:hint="이메일 입력"
                 android:layout_marginBottom="12dp"
                 android:id="@+id/newId"
-                />
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:text="중복확인"
-                android:background="#ACD38D"
-                android:id="@+id/btnCheckNewId"
                 />
         </LinearLayout>
         <EditText
             android:layout_width="315dp"
             android:layout_height="43dp"
-            android:hint="비밀번호"
+            android:hint="비밀번호(6자리 이상)"
             android:layout_marginBottom="12dp"
             android:id="@+id/newPw"
             />

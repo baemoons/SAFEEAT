@@ -6,8 +6,10 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.auth
 
 class SignupActivity : Activity() {
     private lateinit var auth: FirebaseAuth
@@ -15,9 +17,9 @@ class SignupActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.signup)
 
+        auth = Firebase.auth
 //        var newName = findViewById<EditText>(R.id.newName)
         var newId = findViewById<EditText>(R.id.newId)
-//        var btnCheckNewId = findViewById<Button>(R.id.btnCheckNewId)
         var newPw = findViewById<EditText>(R.id.newPw)
 //        var checkNewpw = findViewById<EditText>(R.id.checkNewpw)
 //        var btnCheckNewpw = findViewById<Button>(R.id.btnCheckNewpw)
@@ -37,7 +39,7 @@ class SignupActivity : Activity() {
     private fun signup(email: String, password: String) {
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
             if(task.isSuccessful) {
-                goToMain(task.result?.user)
+                goToHome(task.result?.user)
             } else if(task.exception?.message.isNullOrEmpty()) {
                 Toast.makeText(this, task.exception?.message, Toast.LENGTH_LONG).show()
             } else {
@@ -45,9 +47,9 @@ class SignupActivity : Activity() {
             }
         }
     }
-    private fun goToMain(user: FirebaseUser?) {
+    private fun goToHome(user: FirebaseUser?) {
         if (user != null) {
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, HomeActivity::class.java))
         }
     }
 
