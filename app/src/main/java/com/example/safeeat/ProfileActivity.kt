@@ -6,11 +6,26 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.Toast
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class ProfileActivity : Activity() {
+    private lateinit var auth: FirebaseAuth
+    var firestore : FirebaseFirestore? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.profil)
+        auth = Firebase.auth
+        firestore = FirebaseFirestore.getInstance()
+
+        data class AllergieData (
+            var uid :String? = null,
+            var Allergie : String? = null,
+            var timestamp : Long? = null
+        )
 
         var myprofileBack = findViewById<Button>(R.id.myprofileBack)
         var myprofileStore = findViewById<Button>(R.id.myprofileStore)
@@ -40,19 +55,29 @@ class ProfileActivity : Activity() {
 //        var myprofileMelon = findViewById<Button>(R.id.myprofileMelon)
 //        var myprofileCorn = findViewById<Button>(R.id.myprofileCorn)
 //        var myprofileCamera = findViewById<ImageButton>(R.id.myprofileCamera)
+        var writeAllergie = findViewById<EditText>(R.id.writeAllergie)
         var myprofileHome = findViewById<ImageButton>(R.id.myprofileHome)
 
         myprofileBack.setOnClickListener {
             var mypageIntent = Intent(applicationContext, MypageActivity::class.java)
             startActivity(mypageIntent)
         }
-        myprofileStore.setOnClickListener {
-            var mypageIntent = Intent(applicationContext, MypageActivity::class.java)
-            startActivity(mypageIntent)
-        }
         myprofileHome.setOnClickListener {
             var homeIntent = Intent(applicationContext, HomeActivity::class.java)
             startActivity(homeIntent)
+        }
+
+        myprofileStore.setOnClickListener {
+            var AllergieData = AllergieData()
+            AllergieData.uid = auth?.currentUser?.uid
+            AllergieData.Allergie = writeAllergie.text.toString()
+            AllergieData.timestamp = System.currentTimeMillis()
+
+            firestore?.collection(auth!!.currentUser!!.uid)?.document()?.set(AllergieData)
+            Toast.makeText(this,"저장완료",Toast.LENGTH_SHORT).show()
+
+            var mypageIntent = Intent(applicationContext, MypageActivity::class.java)
+            startActivity(mypageIntent)
         }
     }
 }

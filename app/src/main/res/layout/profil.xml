@@ -82,7 +82,6 @@
                 android:layout_width="315dp"
                 android:layout_height="43dp"
                 android:hint="변경할 비밀번호"
-                android:layout_marginBottom="12dp"
                 android:id="@+id/myprofilePw"
                 />
             <Button
@@ -135,7 +134,7 @@
                     android:layout_margin="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="#ACD38D"
+                    android:background="#ffffff"
                     android:layout_weight="1"
                     android:text = "새우"
                     android:id="@+id/myprofileShrimp"
@@ -206,7 +205,7 @@
                 android:layout_margin="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#ACD38D"
+                android:background="#ffffff"
                 android:layout_weight="1"
                 android:text = "토마토"
                 android:id="@+id/myprofileTomato"
@@ -341,11 +340,18 @@
                 android:id="@+id/myprofileCorn"
                 />
         </LinearLayout>
+        <EditText
+            android:layout_marginLeft="40dp"
+            android:layout_width="315dp"
+            android:layout_height="43dp"
+            android:hint="기타"
+            android:id="@+id/writeAllergie"
+            />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:layout_marginTop="30dp"
         android:background="#ffffff"
         >
         <ImageButton

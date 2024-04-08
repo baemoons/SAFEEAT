@@ -43,7 +43,7 @@ class SignupActivity : Activity() {
             } else if(task.exception?.message.isNullOrEmpty()) {
                 Toast.makeText(this, task.exception?.message, Toast.LENGTH_LONG).show()
             } else {
-                Toast.makeText(this, "이미 있는 계정", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "존재하는 계정이거나 이메일 형식이 아닙니다.", Toast.LENGTH_LONG).show()
             }
         }
     }
