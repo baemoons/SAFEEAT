@@ -10,6 +10,8 @@ import android.widget.Toast
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 
 class ProfileActivity : Activity() {
@@ -20,12 +22,8 @@ class ProfileActivity : Activity() {
         setContentView(R.layout.profil)
         auth = Firebase.auth
         firestore = FirebaseFirestore.getInstance()
-
-        data class AllergieData (
-            var uid :String? = null,
-            var Allergie : String? = null,
-            var timestamp : Long? = null
-        )
+        val database : FirebaseDatabase = FirebaseDatabase.getInstance()
+        val myRef : DatabaseReference = database.getReference("AllergieData")
 
         var myprofileBack = findViewById<Button>(R.id.myprofileBack)
         var myprofileStore = findViewById<Button>(R.id.myprofileStore)
@@ -68,16 +66,9 @@ class ProfileActivity : Activity() {
         }
 
         myprofileStore.setOnClickListener {
-            var AllergieData = AllergieData()
-            AllergieData.uid = auth?.currentUser?.uid
-            AllergieData.Allergie = writeAllergie.text.toString()
-            AllergieData.timestamp = System.currentTimeMillis()
-
-            firestore?.collection(auth!!.currentUser!!.uid)?.document()?.set(AllergieData)
-            Toast.makeText(this,"저장완료",Toast.LENGTH_SHORT).show()
-
-            var mypageIntent = Intent(applicationContext, MypageActivity::class.java)
-            startActivity(mypageIntent)
+            myRef.setValue(writeAllergie.text.toString())
+            var MypageIntent = Intent(applicationContext, MypageActivity::class.java)
+            startActivity(MypageIntent)
         }
     }
 }

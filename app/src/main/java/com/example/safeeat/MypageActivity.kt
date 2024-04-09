@@ -23,7 +23,7 @@ class MypageActivity : Activity() {
 //        var mypageShare = findViewById<Button>(R.id.mypageShare)
 //        var mypagePhoto = findViewById<ImageView>(R.id.mypagePhoto)
 //        var mypageProfile = findViewById<TextView>(R.id.mypageProfile)
-//        var mypageAllergie = findViewById<TextView>(R.id.mypageAllergie)
+        var mypageAllergie = findViewById<TextView>(R.id.mypageAllergie)
 //        var mypageRecentstore = findViewById<Button>(R.id.mypageRecentstore)
 //        var mypageRecentfood = findViewById<Button>(R.id.mypageRecentfood)
 //        var mypageStarlist = findViewById<Button>(R.id.mypageStarlist)
