@@ -22,6 +22,11 @@ class ProfileActivity : Activity() {
         setContentView(R.layout.profil)
         auth = Firebase.auth
         firestore = FirebaseFirestore.getInstance()
+
+        data class AllergieData (
+            var uid: String? = null,
+            var Allergie: String? = null
+        )
         val database : FirebaseDatabase = FirebaseDatabase.getInstance()
         val myRef : DatabaseReference = database.getReference("AllergieData")
 
@@ -66,7 +71,10 @@ class ProfileActivity : Activity() {
         }
 
         myprofileStore.setOnClickListener {
-            myRef.setValue(writeAllergie.text.toString())
+            var AllergieData = AllergieData()
+            AllergieData.uid = auth?.currentUser?.uid
+            AllergieData.Allergie = writeAllergie.text.toString()
+            myRef.setValue(AllergieData)
             var MypageIntent = Intent(applicationContext, MypageActivity::class.java)
             startActivity(MypageIntent)
         }
