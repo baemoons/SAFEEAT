@@ -1,0 +1,19 @@
+import openai
+import os
+import pandas as pd
+import time
+
+openai.api_key = 'api 키를 적으세요'
+
+food= input(" ")
+question= ("%d의 레시피 속 재료 단어로 나열해줘",food)
+
+completion = openai.ChatCompletion.create(
+    model="gpt-3.5-turbo",
+    messages=[
+        {"role":"uesr","content": question}
+    ]
+)
+
+
+print(completion.choices[0].message.content)
