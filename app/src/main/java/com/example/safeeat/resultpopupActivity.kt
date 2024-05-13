@@ -33,7 +33,6 @@ class resultpopupActivity : Activity() {
         setContentView(R.layout.resultpopup)
 
         val takepicture = findViewById<Button>(R.id.takepicture)
-        val Allergie_result = findViewById<TextView>(R.id.Allergie_result)
 
         var camerahome = findViewById<ImageButton>(R.id.camerahome)
         var cameramypage = findViewById<ImageButton>(R.id.cameramypage)
@@ -50,10 +49,6 @@ class resultpopupActivity : Activity() {
         takepicture.setOnClickListener {
             CallCamera()
         }
-//        val apiKey = "api 키를 적으세요"
-//        val food = readLine() ?: ""
-//        val question = "$food의 레시피 속 재료 단어로 나열해줘"
-//        val response = sendOpenAIRequest(apiKey, question)
     }
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray)
     {
@@ -169,5 +164,13 @@ class resultpopupActivity : Activity() {
             connection.disconnect()
             return ""
         }
+    }
+    fun foodsearch() {
+        val Allergie_result = findViewById<TextView>(R.id.Allergie_result)
+        val apiKey = "api 키를 적으세요"
+        print("음식을 입력하세요: ")
+        val food = readLine() ?: ""
+        val question = "'$food'의 레시피 속 재료 단어로 나열해줘"
+        Allergie_result.text = sendOpenAIRequest(apiKey, question)
     }
 }
