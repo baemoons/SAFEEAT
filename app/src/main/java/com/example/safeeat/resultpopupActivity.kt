@@ -33,6 +33,7 @@ class resultpopupActivity : Activity() {
         setContentView(R.layout.resultpopup)
 
         val takepicture = findViewById<Button>(R.id.takepicture)
+        val bringpicture = findViewById<Button>(R.id.bringpicture)
 
         var camerahome = findViewById<ImageButton>(R.id.camerahome)
         var cameramypage = findViewById<ImageButton>(R.id.cameramypage)
@@ -45,9 +46,11 @@ class resultpopupActivity : Activity() {
             var mypageIntent = Intent(applicationContext, MypageActivity::class.java)
             startActivity(mypageIntent)
         }
-
         takepicture.setOnClickListener {
             CallCamera()
+        }
+        bringpicture.setOnClickListener() {
+            GetAlbum()
         }
     }
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray)
@@ -133,6 +136,11 @@ class resultpopupActivity : Activity() {
                         Allergie_capture.setImageURI(uri)
                     }
                 }
+
+                STORAGE_CODE -> {
+                    val uri = data?.data
+                    Allergie_capture.setImageURI(uri)
+                }
             }
         }
     }
@@ -140,6 +148,15 @@ class resultpopupActivity : Activity() {
     {
         val fineName = SimpleDateFormat("yyyyMMddHHmmss").format(System.currentTimeMillis())
         return fineName
+    }
+
+    fun GetAlbum()
+    {
+        if (checkPermission(STORAGE, STORAGE_CODE)) {
+            val itt = Intent(Intent.ACTION_PICK)
+            itt.type = MediaStore.Images.Media.CONTENT_TYPE
+            startActivityForResult(itt, STORAGE_CODE)
+        }
     }
 
     fun sendOpenAIRequest(apiKey: String, question: String): String {

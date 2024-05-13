@@ -57,7 +57,7 @@ class ProfileActivity : Activity() {
 //        var myprofileChicken = findViewById<Button>(R.id.myprofileChicken)
 //        var myprofileMelon = findViewById<Button>(R.id.myprofileMelon)
 //        var myprofileCorn = findViewById<Button>(R.id.myprofileCorn)
-//        var myprofileCamera = findViewById<ImageButton>(R.id.myprofileCamera)
+        var myprofileCamera = findViewById<ImageButton>(R.id.myprofileCamera)
         var writeAllergie = findViewById<EditText>(R.id.writeAllergie)
         var myprofileHome = findViewById<ImageButton>(R.id.myprofileHome)
 
@@ -68,6 +68,10 @@ class ProfileActivity : Activity() {
         myprofileHome.setOnClickListener {
             var homeIntent = Intent(applicationContext, HomeActivity::class.java)
             startActivity(homeIntent)
+        }
+        myprofileCamera.setOnClickListener {
+            var resultpopupIntent = Intent(applicationContext, resultpopupActivity::class.java)
+            startActivity(resultpopupIntent)
         }
 
         myprofileStore.setOnClickListener {
