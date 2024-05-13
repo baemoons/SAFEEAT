@@ -36,57 +36,12 @@ class HomeActivity : Activity() {
         var homeMypage = findViewById<ImageButton>(R.id.homeMypage)
 
         homeCamera.setOnClickListener {
-            val cameraPermissionCheck = ContextCompat.checkSelfPermission(
-                this@HomeActivity,
-                android.Manifest.permission.CAMERA
-            )
-            if (cameraPermissionCheck != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(
-                    this,
-                    arrayOf(android.Manifest.permission.CAMERA),
-                    1000
-                )
-            } else {
-                val REQUEST_IMAGE_CAPTURE = 1
-                Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
-                    takePictureIntent.resolveActivity(packageManager)?.also {
-                        startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
-                    }                          
-                }
-                val dialog = CustomDialog(this)
-                dialog.myDig()
-            }
+            var resultpopupIntent = Intent(applicationContext, resultpopupActivity::class.java)
+            startActivity(resultpopupIntent)
         }
         homeMypage.setOnClickListener {
             var mypageIntent = Intent(applicationContext, MypageActivity::class.java)
             startActivity(mypageIntent)
         }
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == 1000) {
-            if(grantResults[0] != PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this@HomeActivity, "거부", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-}
-class CustomDialog(context: Context) {
-    private val dialog = Dialog(context)
-
-    fun myDig() {
-        dialog.show()
-    }
-
-    fun MyDig() {
-        dialog.setContentView(R.layout.resultpopup)
-        dialog.window!!.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
-        dialog.setCanceledOnTouchOutside(true)
-        dialog.setCancelable(true)
     }
 }
