@@ -2,6 +2,7 @@ package com.example.safeeat
 
 import android.app.Activity
 import android.content.ContentValues
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -15,7 +16,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
+import java.io.BufferedInputStream
+import java.io.ByteArrayOutputStream
+import java.io.File
 
 import java.net.HttpURLConnection
 import java.net.URL
@@ -157,6 +162,20 @@ class resultpopupActivity : Activity() {
             itt.type = MediaStore.Images.Media.CONTENT_TYPE
             startActivityForResult(itt, STORAGE_CODE)
         }
+    }
+    private fun convertResizeImage(context: Context, imageUri: Uri): Uri {
+        val bitmap = MediaStore.Images.Media.getBitmap(context.contentResolver, imageUri)
+        val resizedBitmap = Bitmap.createScaledBitmap(bitmap, 650, 650, true)
+
+        val byteArrayOutputStream = ByteArrayOutputStream()
+        resizedBitmap.compress(Bitmap.CompressFormat.JPEG, 90, byteArrayOutputStream)
+
+        val tempFile = File.createTempFile("resized_image", ".jpg", context.cacheDir)
+        val fileOutputStream = FileOutputStream(tempFile)
+        fileOutputStream.write(byteArrayOutputStream.toByteArray())
+        fileOutputStream.close()
+
+        return Uri.fromFile(tempFile)
     }
 
     fun sendOpenAIRequest(apiKey: String, question: String): String {
