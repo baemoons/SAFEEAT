@@ -1,40 +1,32 @@
 package com.example.safeeat
 
-import androidx.annotation.Nullable
-import androidx.appcompat.app.AppCompatActivity
-
 import android.app.Activity
 import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.os.Environment
 import android.provider.MediaStore
-import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 
-
-import java.io.File
+import java.net.HttpURLConnection
+import java.net.URL
 import java.io.FileOutputStream
 import java.text.SimpleDateFormat
-import java.util.Map
 
 val CAMERA = arrayOf(android.Manifest.permission.CAMERA)
 val STORAGE = arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE, android.Manifest.permission.READ_EXTERNAL_STORAGE)
 val CAMERA_CODE = 98
 val STORAGE_CODE = 99
+
 class resultpopupActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,7 +50,10 @@ class resultpopupActivity : Activity() {
         takepicture.setOnClickListener {
             CallCamera()
         }
-
+//        val apiKey = "api 키를 적으세요"
+//        val food = readLine() ?: ""
+//        val question = "$food의 레시피 속 재료 단어로 나열해줘"
+//        val response = sendOpenAIRequest(apiKey, question)
     }
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray)
     {
@@ -150,5 +145,29 @@ class resultpopupActivity : Activity() {
     {
         val fineName = SimpleDateFormat("yyyyMMddHHmmss").format(System.currentTimeMillis())
         return fineName
+    }
+
+    fun sendOpenAIRequest(apiKey: String, question: String): String {
+        val url = URL("https://api.openai.com/v1/engines/davinci/completions")
+
+        val connection = url.openConnection() as HttpURLConnection
+        connection.requestMethod = "POST"
+        connection.setRequestProperty("Content-Type", "application/json")
+        connection.setRequestProperty("Authorization", "Bearer $apiKey")
+
+        connection.doOutput = true
+        val postData = "{\"prompt\": \"$question\", \"max_tokens\": 150}"
+        connection.outputStream.use { it.write(postData.toByteArray()) }
+
+        val responseCode = connection.responseCode
+        if (responseCode == HttpURLConnection.HTTP_OK) {
+            val response = connection.inputStream.bufferedReader().readText()
+            connection.disconnect()
+            return response
+        } else {
+            println("Error: HTTP $responseCode")
+            connection.disconnect()
+            return ""
+        }
     }
 }
