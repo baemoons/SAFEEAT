@@ -58,6 +58,8 @@ class resultpopupActivity : Activity() {
             GetAlbum()
         }
     }
+
+    //camera
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray)
     {
         when(requestCode) {
@@ -155,6 +157,7 @@ class resultpopupActivity : Activity() {
         return fineName
     }
 
+    //gallery
     fun GetAlbum()
     {
         if (checkPermission(STORAGE, STORAGE_CODE)) {
@@ -163,6 +166,8 @@ class resultpopupActivity : Activity() {
             startActivityForResult(itt, STORAGE_CODE)
         }
     }
+
+    //image resize
     private fun convertResizeImage(context: Context, imageUri: Uri): Uri {
         val bitmap = MediaStore.Images.Media.getBitmap(context.contentResolver, imageUri)
         val resizedBitmap = Bitmap.createScaledBitmap(bitmap, 650, 650, true)
@@ -178,6 +183,7 @@ class resultpopupActivity : Activity() {
         return Uri.fromFile(tempFile)
     }
 
+    //gpt
     fun sendOpenAIRequest(apiKey: String, question: String): String {
         val url = URL("https://api.openai.com/v1/engines/davinci/completions")
 
