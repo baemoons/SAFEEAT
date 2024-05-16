@@ -1,5 +1,5 @@
 import socket
-import json
+import json 
 
 if __name__ == '__main__':
     print('Client')
