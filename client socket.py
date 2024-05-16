@@ -13,7 +13,7 @@ clientSock.sendall(filename.encode('UTF-8'))
 data = clientSock.recv(1024)
 
 if not data:
-    print('%s FILE NO Exist!')
+    print('%s FILE NO Exist!')     
     sys.exit()
 
 nowdir = os.getcwd()
